@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from core.models import Product
+from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
+from core.models import Product, User
 
 def index(request):
     products = Product.objects.all()
@@ -17,3 +18,10 @@ def product(request, id):
         'product' : product
     }
     return render(request, 'product.html', context)
+
+def profile(request, id):
+    profile = get_object_or_404(User, id=id)
+    context = {
+        'profile' : profile
+    }
+    return render(request, 'profile-page.html', context)
